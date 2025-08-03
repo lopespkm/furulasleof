@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'raspougreen.com',
+        hostname: 'api.raspougreen.com',
         port: '',
         pathname: '/uploads/**',
       },
