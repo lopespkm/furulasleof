@@ -429,7 +429,7 @@ const gatewayDefault = process.env.NEXT_PUBLIC_GATEWAY_DEFAULT;
                   />
                 </div>
                 <p className="text-neutral-500 text-xs sm:text-sm">
-                  Valor mínimo: R$ 10,00
+                  Valor mínimo: R$ 1,00
                 </p>
               </div>
 

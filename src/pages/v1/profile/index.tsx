@@ -729,7 +729,7 @@ export default function ProfilePage() {
                       </Button>
                       <div className="text-sm text-neutral-400">
                         <p>• Saques são processados em até 1 hora útil</p>
-                        <p>• Valor mínimo: R$ 10,00</p>
+                        <p>• Valor mínimo: R$ 1,00</p>
                         <p>• Sem taxas para saques PIX</p>
                       </div>
                     </div>
