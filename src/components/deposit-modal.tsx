@@ -274,8 +274,8 @@ const gatewayDefault = process.env.NEXT_PUBLIC_GATEWAY_DEFAULT;
 
   const handleGeneratePayment = async () => {
     const amount = parseFloat(customAmount.replace(',', '.'));
-    if (!amount || amount < 1) {
-      toast.error('Por favor, insira um valor válido (mínimo R$ 1,00)');
+    if (!amount || amount < 10) {
+      toast.error('Por favor, insira um valor válido (mínimo R$ 10,00)');
       return;
     }
     if (!token) {
@@ -429,7 +429,7 @@ const gatewayDefault = process.env.NEXT_PUBLIC_GATEWAY_DEFAULT;
                   />
                 </div>
                 <p className="text-neutral-500 text-xs sm:text-sm">
-                  Valor mínimo: R$ 1,00
+                  Valor mínimo: R$ 10,00
                 </p>
               </div>
 
@@ -453,7 +453,7 @@ const gatewayDefault = process.env.NEXT_PUBLIC_GATEWAY_DEFAULT;
               {/* Generate Payment Button */}
               <Button
                 onClick={handleGeneratePayment}
-                disabled={!customAmount || getCurrentAmount() < 1 || isGeneratingPayment}
+                disabled={!customAmount || getCurrentAmount() < 10 || isGeneratingPayment}
                 className={`${getAppGradient()} w-full text-white font-semibold py-2 sm:py-3 px-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl border border-neutral-400/20 disabled:border-neutral-600/20 text-sm sm:text-base`}
               >
                 {isGeneratingPayment ? (
