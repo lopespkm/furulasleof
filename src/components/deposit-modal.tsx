@@ -274,7 +274,7 @@ const gatewayDefault = process.env.NEXT_PUBLIC_GATEWAY_DEFAULT;
 
   const handleGeneratePayment = async () => {
     const amount = parseFloat(customAmount.replace(',', '.'));
-    if (!amount || amount < 10) {
+    if (!amount || amount < 1) {
       toast.error('Por favor, insira um valor válido (mínimo R$ 10,00)');
       return;
     }
