@@ -14,7 +14,6 @@ import Winners from '@/components/winners';
 import { toast } from 'sonner';
 import { apiUrl } from '@/lib/api';
 
-
 const poppins = Poppins({ 
   subsets: ["latin"],
   weight: ["100", "200", "300","400","500", "600", "700"],
@@ -161,9 +160,7 @@ const ScratchCardPage = () => {
   const [totalWinnings, setTotalWinnings] = useState(0);
   const [scratchComplete, setScratchComplete] = useState(false);
   const [gameResult, setGameResult] = useState<GameResult | null>(null);
-
   const [playingGame, setPlayingGame] = useState(false);
-
 
   // Função para corrigir URLs das imagens
   const fixImageUrl = (url: string) => {
@@ -491,8 +488,6 @@ const ScratchCardPage = () => {
     }
   };
 
-
-
   // Função chamada quando a raspadinha é completada
   const handleScratchComplete = async () => {
     if (scratchComplete || !gameResult) return;
@@ -513,8 +508,6 @@ const ScratchCardPage = () => {
     // Atualizar saldos após o jogo
     await refreshUserBalance();
   };
-
-
 
   // Função para jogar novamente
   const handlePlayAgain = async () => {
@@ -549,8 +542,6 @@ const ScratchCardPage = () => {
     }
   };
 
-
-
   return (
     <div className={`${poppins.className} min-h-screen bg-neutral-900`}>
       <Header />
@@ -568,21 +559,11 @@ const ScratchCardPage = () => {
       
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
-        {/* Back Button */}
-        {/* <Button 
-          onClick={handleBackClick}
-          variant="outline"
-          className="mb-4 sm:mb-6 bg-neutral-800 border-neutral-700 text-white hover:bg-neutral-700 text-sm sm:text-base"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Voltar
-        </Button> */}
-
         {/* Winners */}
         <Winners />
 
         {/* Game Area - Full Width */}
-        <div className="mt-4 bg-neutral-800 rounded-xl border border-neutral-700 p-4 sm:p-6 mb-6 sm:mb-8" style={{ overscrollBehavior: 'contain' }}>
+        <div className="mt-4 bg-neutral-800 rounded-xl border border-neutral-700 p-4 sm:p-6 mb-6 sm:mb-8">
           {/* Header */}
           <div className="text-center mb-4 sm:mb-6">
             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-white to-neutral-400 bg-clip-text text-transparent">
@@ -672,43 +653,93 @@ const ScratchCardPage = () => {
               )}
               
               {gameState === 'playing' && (
-                <div className="flex justify-center mb-4 touch-none overflow-hidden" style={{ touchAction: 'none' }}>
-                   <div className="w-full flex justify-center" style={{ touchAction: 'none', userSelect: 'none' }}>
-                    <ScratchCard
-                      width={screenWidth < 640 ? Math.min(280, screenWidth - 60) : screenWidth < 1024 ? 450 : 500}
-                        height={screenWidth < 640 ? Math.min(280, screenWidth - 60) : screenWidth < 1024 ? 450 : 500}
-                      image="/raspe_aqui.webp"
-                      finishPercent={85}
-                      brushSize={screenWidth < 640 ? 12 : screenWidth < 1024 ? 20 : 25}
-                      onComplete={handleScratchComplete}
+                <div className="flex justify-center mb-4 select-none" style={{ 
+                  touchAction: 'manipulation',
+                  WebkitTouchCallout: 'none',
+                  WebkitUserSelect: 'none',
+                  userSelect: 'none'
+                }}>
+                  <div 
+                    className="w-full flex justify-center" 
+                    style={{ 
+                      touchAction: 'manipulation',
+                      userSelect: 'none',
+                      WebkitUserSelect: 'none',
+                      WebkitTouchCallout: 'none',
+                      position: 'relative',
+                      isolation: 'isolate'
+                    }}
+                  >
+                    <div 
+                      style={{
+                        touchAction: 'none',
+                        position: 'relative',
+                        transform: 'translateZ(0)',
+                        backfaceVisibility: 'hidden',
+                        WebkitBackfaceVisibility: 'hidden'
+                      }}
                     >
-                    <div className="w-full h-full bg-gradient-to-br from-neutral-800 to-neutral-900 p-4">
-                      <div className="grid grid-cols-3 gap-2 h-full">
-                        {scratchItems.map((item) => (
-                          <div
-                            key={item.id}
-                            className="bg-gradient-to-br from-neutral-700 to-neutral-800 rounded-lg flex flex-col items-center justify-center p-2 border border-neutral-600"
-                          >
-                            <div className="w-8 h-8 mb-1 relative">
-                              <Image
-                                src={item.icon}
-                                alt={`Prêmio ${item.value}`}
-                                fill
-                                className="object-contain"
-                                onError={(e) => {
-                                  const target = e.target as HTMLImageElement;
-                                  target.src = '/50_money.webp';
+                      <ScratchCard
+                        width={screenWidth < 640 ? Math.min(280, screenWidth - 60) : screenWidth < 1024 ? 450 : 500}
+                        height={screenWidth < 640 ? Math.min(280, screenWidth - 60) : screenWidth < 1024 ? 450 : 500}
+                        image="/raspe_aqui.webp"
+                        finishPercent={85}
+                        brushSize={screenWidth < 640 ? 15 : screenWidth < 1024 ? 25 : 30}
+                        onComplete={handleScratchComplete}
+                      >
+                        <div 
+                          className="w-full h-full bg-gradient-to-br from-neutral-800 to-neutral-900 p-4"
+                          style={{
+                            touchAction: 'none',
+                            userSelect: 'none',
+                            WebkitUserSelect: 'none'
+                          }}
+                        >
+                          <div className="grid grid-cols-3 gap-2 h-full">
+                            {scratchItems.map((item) => (
+                              <div
+                                key={item.id}
+                                className="bg-gradient-to-br from-neutral-700 to-neutral-800 rounded-lg flex flex-col items-center justify-center p-2 border border-neutral-600"
+                                style={{
+                                  touchAction: 'none',
+                                  userSelect: 'none',
+                                  WebkitUserSelect: 'none'
                                 }}
-                              />
-                            </div>
-                            <p className="text-white text-xs font-bold text-center">
-                              {item.value > 0 ? `R$ ${item.value}` : 'Ops! Hoje não'}
-                            </p>
+                              >
+                                <div className="w-8 h-8 mb-1 relative">
+                                  <Image
+                                    src={item.icon}
+                                    alt={`Prêmio ${item.value}`}
+                                    fill
+                                    className="object-contain"
+                                    onError={(e) => {
+                                      const target = e.target as HTMLImageElement;
+                                      target.src = '/50_money.webp';
+                                    }}
+                                    style={{
+                                      userSelect: 'none',
+                                      WebkitUserSelect: 'none',
+                                      pointerEvents: 'none'
+                                    }}
+                                    draggable={false}
+                                  />
+                                </div>
+                                <p 
+                                  className="text-white text-xs font-bold text-center"
+                                  style={{
+                                    userSelect: 'none',
+                                    WebkitUserSelect: 'none',
+                                    pointerEvents: 'none'
+                                  }}
+                                >
+                                  {item.value > 0 ? `R$ ${item.value}` : 'Ops! Hoje não'}
+                                </p>
+                              </div>
+                            ))}
                           </div>
-                        ))}
-                      </div>
+                        </div>
+                      </ScratchCard>
                     </div>
-                  </ScratchCard>
                   </div>
                 </div>
               )}
@@ -794,26 +825,7 @@ const ScratchCardPage = () => {
               )}
             </div>
           )}
-
-          {/* Game Info */}
-          {/* <div className="bg-neutral-700 rounded-lg p-3 sm:p-4 border border-neutral-600">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
-              <div>
-                <p className="text-white font-semibold text-sm sm:text-base">SEU SALDO</p>
-                <p className="text-green-400 text-lg sm:text-xl font-bold">
-                  {isAuthenticated && user?.wallet?.[0]?.balance ? `R$ ${parseFloat(user.wallet[0].balance).toFixed(2).replace('.', ',')}` : 'R$ 0,00'}
-                </p>
-              </div>
-              <Button 
-                disabled={!isAuthenticated}
-                className="bg-neutral-600 hover:bg-neutral-800 disabled:bg-neutral-700 disabled:cursor-not-allowed text-white font-bold py-2 px-4 sm:px-6 rounded-lg cursor-pointer text-xs sm:text-sm w-full sm:w-auto"
-              >
-                Ver histórico
-              </Button>
-            </div>
-          </div> */}
         </div>
-
 
         {/* Prize Section */}
         <div className="rounded-xl">
@@ -863,9 +875,53 @@ const ScratchCardPage = () => {
       </div>
 
       <Footer />
+      
+      {/* CSS Global para mobile touch */}
+      <style jsx global>{`
+        * {
+          -webkit-touch-callout: none;
+          -webkit-user-select: none;
+          -khtml-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+        }
+        
+        .scratch-area {
+          touch-action: none !important;
+          -webkit-touch-callout: none !important;
+          -webkit-user-select: none !important;
+          user-select: none !important;
+          position: relative;
+          transform: translateZ(0);
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+        }
+        
+        canvas {
+          touch-action: none !important;
+          -webkit-touch-callout: none !important;
+          position: relative;
+          transform: translateZ(0);
+        }
+        
+        body {
+          overscroll-behavior: contain;
+          -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Evitar zoom no mobile */
+        input, textarea, select {
+          font-size: 16px !important;
+        }
+        
+        /* Melhorar performance de scroll */
+        .scroll-container {
+          -webkit-overflow-scrolling: touch;
+          overflow-scrolling: touch;
+        }
+      `}</style>
     </div>
   );
 };
 
 export default ScratchCardPage;
-
