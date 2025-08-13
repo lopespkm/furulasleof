@@ -655,7 +655,17 @@ const ScratchCardPage = () => {
                 
                 {gameState === 'playing' && (
                   <div className="flex justify-center mb-4">
-                    <div className="scratch-container">
+                    <div 
+                      className="scratch-container"
+                      style={{
+                        position: 'relative',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: 'fit-content',
+                        margin: '0 auto'
+                      }}
+                    >
                       <ScratchCard
                         width={screenWidth < 640 ? Math.min(280, screenWidth - 60) : screenWidth < 1024 ? 450 : 500}
                         height={screenWidth < 640 ? Math.min(280, screenWidth - 60) : screenWidth < 1024 ? 450 : 500}
@@ -663,6 +673,12 @@ const ScratchCardPage = () => {
                         finishPercent={85}
                         brushSize={screenWidth < 640 ? 15 : screenWidth < 1024 ? 25 : 30}
                         onComplete={handleScratchComplete}
+                        style={{
+                          position: 'relative',
+                          display: 'block',
+                          margin: 0,
+                          padding: 0
+                        }}
                       >
                         <div className="w-full h-full bg-gradient-to-br from-neutral-800 to-neutral-900 p-4">
                           <div className="grid grid-cols-3 gap-2 h-full">
@@ -831,6 +847,89 @@ const ScratchCardPage = () => {
       
       {/* CSS Global para mobile touch */}
       <style jsx global>{`
+        body {
+          overscroll-behavior: contain;
+          -webkit-overflow-scrolling: touch;
+          margin: 0;
+          padding: 0;
+        }
+        
+        /* Container da raspadinha */
+        .scratch-container {
+          position: relative !important;
+          display: flex !important;
+          justify-content: center !important;
+          align-items: center !important;
+          width: fit-content !important;
+          margin: 0 auto !important;
+          padding: 0 !important;
+          touch-action: manipulation !important;
+        }
+        
+        /* Resetar todos os elementos dentro do container */
+        .scratch-container * {
+          box-sizing: border-box !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+        
+        /* Canvas específico */
+        .scratch-container canvas {
+          position: relative !important;
+          display: block !important;
+          margin: 0 auto !important;
+          padding: 0 !important;
+          border: none !important;
+          outline: none !important;
+          touch-action: none !important;
+          -webkit-touch-callout: none !important;
+          -webkit-user-select: none !important;
+          user-select: none !important;
+          transform: none !important;
+          top: 0 !important;
+          left: 0 !important;
+        }
+        
+        /* Forçar reset de posição absoluta */
+        .scratch-container canvas[style*="position: absolute"] {
+          position: relative !important;
+          top: auto !important;
+          left: auto !important;
+          right: auto !important;
+          bottom: auto !important;
+          transform: none !important;
+        }
+        
+        /* Elementos não selecionáveis */
+        .scratch-container div,
+        .scratch-container img,
+        .scratch-container p {
+          touch-action: none !important;
+          user-select: none !important;
+          -webkit-user-select: none !important;
+          -webkit-touch-callout: none !important;
+          pointer-events: none !important;
+        }
+        
+        /* Evitar zoom no mobile */
+        input, textarea, select {
+          font-size: 16px !important;
+        }
+        
+        /* Viewport fix para mobile */
+        @media screen and (max-width: 768px) {
+          .scratch-container {
+            max-width: 320px !important;
+            width: 100% !important;
+          }
+          
+          .scratch-container canvas {
+            max-width: 100% !important;
+            height: auto !important;
+          }
+        }
+        
+        /* Reset global para evitar interferências */
         * {
           -webkit-touch-callout: none;
           -webkit-user-select: none;
@@ -839,93 +938,11 @@ const ScratchCardPage = () => {
           -ms-user-select: none;
         }
         
-        .scratch-container {
-          touch-action: none !important;
-          -webkit-touch-callout: none !important;
-          -webkit-user-select: none !important;
-          user-select: none !important;
+        /* Forçar posicionamento correto do canvas */
+        canvas {
           position: relative !important;
-          display: inline-block !important;
           margin: 0 auto !important;
-        }
-        
-        .scratch-container canvas {
-          touch-action: none !important;
-          -webkit-touch-callout: none !important;
-          position: relative !important;
           display: block !important;
-          margin: 0 !important;
-          padding: 0 !important;
-          border: none !important;
-          outline: none !important;
-        }
-        
-        .scratch-container div {
-          touch-action: none !important;
-          user-select: none !important;
-          -webkit-user-select: none !important;
-          -webkit-touch-callout: none !important;
-        }
-        
-        .scratch-container img {
-          user-select: none !important;
-          -webkit-user-select: none !important;
-          pointer-events: none !important;
-          -webkit-touch-callout: none !important;
-        }
-        
-        .scratch-container p {
-          user-select: none !important;
-          -webkit-user-select: none !important;
-          pointer-events: none !important;
-          -webkit-touch-callout: none !important;
-        }
-        
-        /* Força o canvas a ter posição correta */
-        canvas[style*="position"] {
-          position: absolute !important;
-          top: 0 !important;
-          left: 0 !important;
-          transform: none !important;
-          margin: 0 !important;
-        }
-        
-        body {
-          overscroll-behavior: contain;
-          -webkit-overflow-scrolling: touch;
-        }
-        
-        /* Evitar zoom no mobile */
-        input, textarea, select {
-          font-size: 16px !important;
-        }
-        
-        /* Melhorar performance de scroll */
-        .scroll-container {
-          -webkit-overflow-scrolling: touch;
-          overflow-scrolling: touch;
-        }
-        
-        /* Fix específico para mobile viewport */
-        @media screen and (max-width: 768px) {
-          .scratch-container {
-            width: 100% !important;
-            max-width: 300px !important;
-            margin: 0 auto !important;
-          }
-          
-          .scratch-container canvas {
-            width: 100% !important;
-            height: auto !important;
-            max-width: 300px !important;
-          }
-        }
-        
-        /* Prevenir problemas de posicionamento */
-        .scratch-container > div {
-          position: relative !important;
-          width: 100% !important;
-          height: 100% !important;
         }
       `}</style>
     </>
