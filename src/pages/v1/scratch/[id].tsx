@@ -657,36 +657,29 @@ const ScratchCardPage = () => {
                   touchAction: 'manipulation',
                   WebkitTouchCallout: 'none',
                   WebkitUserSelect: 'none',
-                  userSelect: 'none'
+                  userSelect: 'none',
+                  position: 'relative'
                 }}>
                   <div 
-                    className="w-full flex justify-center" 
+                    className="scratch-container" 
                     style={{ 
-                      touchAction: 'manipulation',
+                      touchAction: 'none',
                       userSelect: 'none',
                       WebkitUserSelect: 'none',
                       WebkitTouchCallout: 'none',
                       position: 'relative',
-                      isolation: 'isolate'
+                      display: 'inline-block',
+                      margin: '0 auto'
                     }}
                   >
-                    <div 
-                      style={{
-                        touchAction: 'none',
-                        position: 'relative',
-                        transform: 'translateZ(0)',
-                        backfaceVisibility: 'hidden',
-                        WebkitBackfaceVisibility: 'hidden'
-                      }}
+                    <ScratchCard
+                      width={screenWidth < 640 ? Math.min(280, screenWidth - 60) : screenWidth < 1024 ? 450 : 500}
+                      height={screenWidth < 640 ? Math.min(280, screenWidth - 60) : screenWidth < 1024 ? 450 : 500}
+                      image="/raspe_aqui.webp"
+                      finishPercent={85}
+                      brushSize={screenWidth < 640 ? 15 : screenWidth < 1024 ? 25 : 30}
+                      onComplete={handleScratchComplete}
                     >
-                      <ScratchCard
-                        width={screenWidth < 640 ? Math.min(280, screenWidth - 60) : screenWidth < 1024 ? 450 : 500}
-                        height={screenWidth < 640 ? Math.min(280, screenWidth - 60) : screenWidth < 1024 ? 450 : 500}
-                        image="/raspe_aqui.webp"
-                        finishPercent={85}
-                        brushSize={screenWidth < 640 ? 15 : screenWidth < 1024 ? 25 : 30}
-                        onComplete={handleScratchComplete}
-                      >
                         <div 
                           className="w-full h-full bg-gradient-to-br from-neutral-800 to-neutral-900 p-4"
                           style={{
@@ -886,22 +879,34 @@ const ScratchCardPage = () => {
           -ms-user-select: none;
         }
         
-        .scratch-area {
+        .scratch-container {
           touch-action: none !important;
           -webkit-touch-callout: none !important;
           -webkit-user-select: none !important;
           user-select: none !important;
-          position: relative;
-          transform: translateZ(0);
-          backface-visibility: hidden;
-          -webkit-backface-visibility: hidden;
+          position: relative !important;
+          display: inline-block !important;
+          margin: 0 auto !important;
         }
         
-        canvas {
+        .scratch-container canvas {
           touch-action: none !important;
           -webkit-touch-callout: none !important;
-          position: relative;
-          transform: translateZ(0);
+          position: relative !important;
+          display: block !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          border: none !important;
+          outline: none !important;
+        }
+        
+        /* Força o canvas a ter posição correta */
+        canvas[style*="position"] {
+          position: absolute !important;
+          top: 0 !important;
+          left: 0 !important;
+          transform: none !important;
+          margin: 0 !important;
         }
         
         body {
@@ -918,6 +923,28 @@ const ScratchCardPage = () => {
         .scroll-container {
           -webkit-overflow-scrolling: touch;
           overflow-scrolling: touch;
+        }
+        
+        /* Fix específico para mobile viewport */
+        @media screen and (max-width: 768px) {
+          .scratch-container {
+            width: 100% !important;
+            max-width: 300px !important;
+            margin: 0 auto !important;
+          }
+          
+          .scratch-container canvas {
+            width: 100% !important;
+            height: auto !important;
+            max-width: 300px !important;
+          }
+        }
+        
+        /* Prevenir problemas de posicionamento */
+        .scratch-container > div {
+          position: relative !important;
+          width: 100% !important;
+          height: 100% !important;
         }
       `}</style>
     </div>
