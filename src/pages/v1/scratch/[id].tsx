@@ -673,12 +673,6 @@ const ScratchCardPage = () => {
                         finishPercent={85}
                         brushSize={screenWidth < 640 ? 15 : screenWidth < 1024 ? 25 : 30}
                         onComplete={handleScratchComplete}
-                        style={{
-                          position: 'relative',
-                          display: 'block',
-                          margin: 0,
-                          padding: 0
-                        }}
                       >
                         <div className="w-full h-full bg-gradient-to-br from-neutral-800 to-neutral-900 p-4">
                           <div className="grid grid-cols-3 gap-2 h-full">
