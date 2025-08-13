@@ -901,6 +901,27 @@ const ScratchCardPage = () => {
           outline: none !important;
         }
         
+        .scratch-container div {
+          touch-action: none !important;
+          user-select: none !important;
+          -webkit-user-select: none !important;
+          -webkit-touch-callout: none !important;
+        }
+        
+        .scratch-container img {
+          user-select: none !important;
+          -webkit-user-select: none !important;
+          pointer-events: none !important;
+          -webkit-touch-callout: none !important;
+        }
+        
+        .scratch-container p {
+          user-select: none !important;
+          -webkit-user-select: none !important;
+          pointer-events: none !important;
+          -webkit-touch-callout: none !important;
+        }
+        
         /* Força o canvas a ter posição correta */
         canvas[style*="position"] {
           position: absolute !important;
