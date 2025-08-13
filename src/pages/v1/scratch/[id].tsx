@@ -543,7 +543,8 @@ const ScratchCardPage = () => {
   };
 
   return (
-    <div className={`${poppins.className} min-h-screen bg-neutral-900`}>
+    <>
+      <div className={`${poppins.className} min-h-screen bg-neutral-900`}>
       <Header />
       
       {/* Confetti */}
@@ -947,7 +948,8 @@ const ScratchCardPage = () => {
           height: 100% !important;
         }
       `}</style>
-    </div>
+      </div>
+    </>
   );
 };
 
