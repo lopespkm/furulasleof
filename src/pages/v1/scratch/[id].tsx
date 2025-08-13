@@ -672,15 +672,15 @@ const ScratchCardPage = () => {
                       display: 'inline-block',
                       margin: '0 auto'
                     }}
-                  >
-                    <ScratchCard
-                      width={screenWidth < 640 ? Math.min(280, screenWidth - 60) : screenWidth < 1024 ? 450 : 500}
-                      height={screenWidth < 640 ? Math.min(280, screenWidth - 60) : screenWidth < 1024 ? 450 : 500}
-                      image="/raspe_aqui.webp"
-                      finishPercent={85}
-                      brushSize={screenWidth < 640 ? 15 : screenWidth < 1024 ? 25 : 30}
-                      onComplete={handleScratchComplete}
-                    >
+                                      >
+                      <ScratchCard
+                        width={screenWidth < 640 ? Math.min(280, screenWidth - 60) : screenWidth < 1024 ? 450 : 500}
+                        height={screenWidth < 640 ? Math.min(280, screenWidth - 60) : screenWidth < 1024 ? 450 : 500}
+                        image="/raspe_aqui.webp"
+                        finishPercent={85}
+                        brushSize={screenWidth < 640 ? 15 : screenWidth < 1024 ? 25 : 30}
+                        onComplete={handleScratchComplete}
+                      >
                         <div 
                           className="w-full h-full bg-gradient-to-br from-neutral-800 to-neutral-900 p-4"
                           style={{
