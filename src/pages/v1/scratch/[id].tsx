@@ -663,7 +663,7 @@ const ScratchCardPage = () => {
               {gameState === 'playing' && (
                 <div className="text-center mb-4">
                   <p className="text-white font-semibold text-sm sm:text-base mb-2">
-                    🎯 Raspe a superfície para descobrir os prêmios!
+                    🎯 Toque na superfície para descobrir os prêmios!
                   </p>
                   <p className="text-yellow-400 text-xs sm:text-sm">
                     💡 Você precisa de 3 símbolos iguais para ganhar!
@@ -678,7 +678,7 @@ const ScratchCardPage = () => {
                       width={screenWidth < 640 ? Math.min(280, screenWidth - 60) : screenWidth < 1024 ? 450 : 500}
                         height={screenWidth < 640 ? Math.min(280, screenWidth - 60) : screenWidth < 1024 ? 450 : 500}
                       image="/raspe_aqui.webp"
-                      finishPercent={85}
+                      finishPercent={1}
                       brushSize={screenWidth < 640 ? 12 : screenWidth < 1024 ? 20 : 25}
                       onComplete={handleScratchComplete}
                     >
@@ -868,4 +868,3 @@ const ScratchCardPage = () => {
 };
 
 export default ScratchCardPage;
-
